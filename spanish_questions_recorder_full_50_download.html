@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spanish Question & Recording App (Full 50)</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: normal;
+      color: #555;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 8px;
+    }
+    select, button, input[type="range"] {
+      margin-top: 6px;
+    }
+    #questionText {
+      margin-top: 12px;
+      padding: 12px;
+      min-height: 70px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fafafa;
+      line-height: 1.5;
+    }
+    .section-title {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .tts-controls, .recording-controls {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f8f8f8;
+    }
+    button {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    button:hover:not(:disabled) {
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #status {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    audio {
+      margin-top: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Preguntas en español &amp; Grabación</h1>
+    <h2>50 preguntas de conversación en español + TTS + grabación + descarga</h2>
+
+    <!-- 質問選択 -->
+    <label for="questionSelect">質問を選んでください：</label>
+    <select id="questionSelect">
+      <!-- I. 個人的な興味と経験 -->
+      <optgroup label="I. Intereses y Experiencias Personales">
+        <option value="¿Cuál es tu libro favorito de todos los tiempos y por qué te impactó?">
+          1. ¿Cuál es tu libro favorito de todos los tiempos y por qué te impactó?
+        </option>
+        <option value="Si pudieras aprender a hacer una cosa perfectamente, ¿qué habilidad elegirías?">
+          2. Si pudieras aprender a hacer una cosa perfectamente, ¿qué habilidad elegirías?
+        </option>
+        <option value="¿Cuál es el viaje más memorable que has hecho y qué fue lo que lo hizo tan especial?">
+          3. ¿Cuál es el viaje más memorable que has hecho y qué fue lo que lo hizo tan especial?
+        </option>
+        <option value="¿Hay algún hábito diario que te haya cambiado la vida para mejor?">
+          4. ¿Hay algún hábito diario que te haya cambiado la vida para mejor?
+        </option>
+        <option value="¿Qué película o serie recomendarías a todo el mundo y cuál es su tema principal?">
+          5. ¿Qué película o serie recomendarías a todo el mundo y cuál es su tema principal?
+        </option>
+        <option value="¿Tienes alguna meta personal que esperas lograr en los próximos cinco años?">
+          6. ¿Tienes alguna meta personal que esperas lograr en los próximos cinco años?
+        </option>
+        <option value="¿Qué tipo de música te gusta escuchar cuando necesitas concentrarte o relajarte?">
+          7. ¿Qué tipo de música te gusta escuchar cuando necesitas concentrarte o relajarte?
+        </option>
+        <option value="Si pudieras cenar con cualquier persona (viva o muerta), ¿quién sería y qué le preguntarías?">
+          8. Si pudieras cenar con cualquier persona (viva o muerta), ¿quién sería y qué le preguntarías?
+        </option>
+        <option value="¿Cuál es el plato de comida que mejor sabes cocinar?">
+          9. ¿Cuál es el plato de comida que mejor sabes cocinar?
+        </option>
+        <option value="¿Qué cosa pequeña te hace genuinamente feliz todos los días?">
+          10. ¿Qué cosa pequeña te hace genuinamente feliz todos los días?
+        </option>
+        <option value="¿Cuál ha sido el desafío más grande que has superado en tu vida?">
+          11. ¿Cuál ha sido el desafío más grande que has superado en tu vida?
+        </option>
+        <option value="¿Cuál es el mejor consejo que has recibido?">
+          12. ¿Cuál es el mejor consejo que has recibido?
+        </option>
+        <option value="¿Prefieres un día tranquilo en casa o una aventura emocionante?">
+          13. ¿Prefieres un día tranquilo en casa o una aventura emocionante?
+        </option>
+        <option value="¿Cuál es tu forma favorita de aprender sobre nuevos temas?">
+          14. ¿Cuál es tu forma favorita de aprender sobre nuevos temas?
+        </option>
+        <option value="¿Qué idioma te gustaría aprender además del español y por qué?">
+          15. ¿Qué idioma te gustaría aprender además del español y por qué?
+        </option>
+      </optgroup>
+
+      <!-- II. Cultura, Tecnología y Sociedad -->
+      <optgroup label="II. Cultura, Tecnología y Sociedad">
+        <option value="¿Qué avance tecnológico te parece el más importante de la última década?">
+          16. ¿Qué avance tecnológico te parece el más importante de la última década?
+        </option>
+        <option value="¿Crees que las redes sociales conectan o aíslan a las personas?">
+          17. ¿Crees que las redes sociales conectan o aíslan a las personas?
+        </option>
+        <option value="¿Cuál es tu aplicación móvil favorita y por qué la usas tanto?">
+          18. ¿Cuál es tu aplicación móvil favorita y por qué la usas tanto?
+        </option>
+        <option value="¿Hay alguna tradición cultural de tu país que te gustaría compartir?">
+          19. ¿Hay alguna tradición cultural de tu país que te gustaría compartir?
+        </option>
+        <option value="¿Qué opinas sobre el trabajo remoto en comparación con el trabajo en la oficina?">
+          20. ¿Qué opinas sobre el trabajo remoto en comparación con el trabajo en la oficina?
+        </option>
+        <option value="¿Qué cambio social te gustaría ver en el mundo durante tu vida?">
+          21. ¿Qué cambio social te gustaría ver en el mundo durante tu vida?
+        </option>
+        <option value="¿Cómo crees que será la educación en 50 años?">
+          22. ¿Cómo crees que será la educación en 50 años?
+        </option>
+        <option value="¿Cuál es la invención más subestimada (menos valorada) de la historia?">
+          23. ¿Cuál es la invención más subestimada (menos valorada) de la historia?
+        </option>
+        <option value="¿Es la inteligencia artificial una amenaza o una herramienta útil?">
+          24. ¿Es la inteligencia artificial una amenaza o una herramienta útil?
+        </option>
+        <option value="¿Qué importancia tiene el arte en una sociedad moderna?">
+          25. ¿Qué importancia tiene el arte en una sociedad moderna?
+        </option>
+        <option value="Si pudieras vivir en cualquier época histórica, ¿cuál elegirías?">
+          26. Si pudieras vivir en cualquier época histórica, ¿cuál elegirías?
+        </option>
+        <option value="¿Qué tipo de noticias o temas evitas leer?">
+          27. ¿Qué tipo de noticias o temas evitas leer?
+        </option>
+        <option value="¿Cómo crees que el cambio climático afectará la vida cotidiana en el futuro?">
+          28. ¿Cómo crees que el cambio climático afectará la vida cotidiana en el futuro?
+        </option>
+        <option value="¿Qué idioma crees que es el más útil aprender globalmente (aparte del inglés)?">
+          29. ¿Qué idioma crees que es el más útil aprender globalmente (aparte del inglés)?
+        </option>
+        <option value="¿Qué ciudad moderna consideras un modelo de vida sostenible?">
+          30. ¿Qué ciudad moderna consideras un modelo de vida sostenible?
+        </option>
+      </optgroup>
+
+      <!-- III. Hipotéticos y Filosofía -->
+      <optgroup label="III. Hipotéticos y Filosofía">
+        <option value="Si tuvieras un superpoder, ¿cuál sería y cómo lo usarías?">
+          31. Si tuvieras un superpoder, ¿cuál sería y cómo lo usarías?
+        </option>
+        <option value="¿Qué objeto inanimado te gustaría que pudiera hablar por un día?">
+          32. ¿Qué objeto inanimado te gustaría que pudiera hablar por un día?
+        </option>
+        <option value="Si el dinero no fuera un problema, ¿a qué te dedicarías el resto de tu vida?">
+          33. Si el dinero no fuera un problema, ¿a qué te dedicarías el resto de tu vida?
+        </option>
+        <option value="¿Crees en el destino o en la toma de decisiones libre?">
+          34. ¿Crees en el destino o en la toma de decisiones libre?
+        </option>
+        <option value="¿Cuál es la pregunta más difícil de responder para la humanidad?">
+          35. ¿Cuál es la pregunta más difícil de responder para la humanidad?
+        </option>
+        <option value="Si pudieras enviar un mensaje de 10 palabras a todos en el mundo, ¿qué dirías?">
+          36. Si pudieras enviar un mensaje de 10 palabras a todos en el mundo, ¿qué dirías?
+        </option>
+        <option value="¿Cuál es tu mayor miedo irracional?">
+          37. ¿Cuál es tu mayor miedo irracional?
+        </option>
+        <option value="¿Es más importante ser amable o ser honesto?">
+          38. ¿Es más importante ser amable o ser honesto?
+        </option>
+        <option value="Si pudieras viajar instantáneamente a cualquier lugar del planeta, ¿dónde irías ahora mismo?">
+          39. Si pudieras viajar instantáneamente a cualquier lugar del planeta, ¿dónde irías ahora mismo?
+        </option>
+        <option value="¿Qué harías si te ganaras la lotería mañana?">
+          40. ¿Qué harías si te ganaras la lotería mañana?
+        </option>
+        <option value="¿Qué lección de vida aprendiste demasiado tarde?">
+          41. ¿Qué lección de vida aprendiste demasiado tarde?
+        </option>
+        <option value="¿Crees que la felicidad es una elección o una circunstancia?">
+          42. ¿Crees que la felicidad es una elección o una circunstancia?
+        </option>
+        <option value="Si pudieras prohibir una cosa en el mundo, ¿qué sería y por qué?">
+          43. Si pudieras prohibir una cosa en el mundo, ¿qué sería y por qué?
+        </option>
+        <option value="¿Qué animal te gustaría ser por un día?">
+          44. ¿Qué animal te gustaría ser por un día?
+        </option>
+        <option value="¿Crees que los humanos estamos destinados a colonizar otros planetas?">
+          45. ¿Crees que los humanos estamos destinados a colonizar otros planetas?
+        </option>
+        <option value="¿Qué crees que sucede después de la muerte?">
+          46. ¿Qué crees que sucede después de la muerte?
+        </option>
+        <option value="Si pudieras cambiar tu nombre, ¿cuál elegirías?">
+          47. Si pudieras cambiar tu nombre, ¿cuál elegirías?
+        </option>
+        <option value="¿Preferirías tener más tiempo o más dinero?">
+          48. ¿Preferirías tener más tiempo o más dinero?
+        </option>
+        <option value="¿Cuál es la mejor edad para ser feliz, en tu opinión?">
+          49. ¿Cuál es la mejor edad para ser feliz, en tu opinión?
+        </option>
+        <option value="¿Qué significa para ti tener una vida con propósito?">
+          50. ¿Qué significa para ti tener una vida con propósito?
+        </option>
+      </optgroup>
+    </select>
+
+    <div id="questionText"></div>
+
+    <!-- 音声読み上げ -->
+    <div class="tts-controls">
+      <div class="section-title">① 質問の音声（スペイン語 TTS）</div>
+      <button id="playQuestionBtn">▶ 質問を読み上げる</button>
+      <div style="margin-top: 10px;">
+        <label for="speedRange">
+          スピード：
+          <span id="speedValue">0.9</span>（0.5〜1.5）
+        </label>
+        <br/>
+        <input
+          type="range"
+          id="speedRange"
+          min="0.5"
+          max="1.5"
+          step="0.1"
+          value="0.9"
+        />
+      </div>
+      <p style="font-size: 0.85rem; margin-top: 8px;">
+        ※スペイン語なので <code>utterance.lang = 'es-ES'</code> に設定しています。
+        必要なら <code>'es-MX'</code> などに変更してもOKです。
+      </p>
+    </div>
+
+    <!-- 録音 -->
+    <div class="recording-controls">
+      <div class="section-title">② 自分の声を録音</div>
+      <button id="startRecBtn">● 録音開始</button>
+      <button id="stopRecBtn" disabled>■ 録音停止</button>
+      <button id="playRecBtn" disabled>▶ 録音を再生</button>
+      <button id="downloadBtn" disabled>⬇ 録音をダウンロード</button>
+
+      <audio id="recordedAudio" controls style="display:none;"></audio>
+      <div id="status"></div>
+    </div>
+  </div>
+
+  <script>
+    // ====== 質問テキストの表示 ======
+    const questionSelect = document.getElementById('questionSelect');
+    const questionTextDiv = document.getElementById('questionText');
+
+    function updateQuestionText() {
+      questionTextDiv.textContent = questionSelect.value;
+    }
+    questionSelect.addEventListener('change', updateQuestionText);
+    // 初期表示
+    updateQuestionText();
+
+    // ====== 音声読み上げ (SpeechSynthesis) ======
+    const playQuestionBtn = document.getElementById('playQuestionBtn');
+    const speedRange = document.getElementById('speedRange');
+    const speedValue = document.getElementById('speedValue');
+
+    speedRange.addEventListener('input', () => {
+      speedValue.textContent = speedRange.value;
+    });
+
+    playQuestionBtn.addEventListener('click', () => {
+      const text = questionTextDiv.textContent.trim();
+      if (!text) return;
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      // スペイン語音声
+      utterance.lang = 'es-ES';   // 必要なら 'es-MX' などに変更
+      utterance.rate = parseFloat(speedRange.value);
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+    });
+
+    // ====== 録音 (MediaRecorder) ======
+    const startRecBtn = document.getElementById('startRecBtn');
+    const stopRecBtn = document.getElementById('stopRecBtn');
+    const playRecBtn = document.getElementById('playRecBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const recordedAudio = document.getElementById('recordedAudio');
+    const statusDiv = document.getElementById('status');
+
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let audioBlob = null;
+
+    async function startRecording() {
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          alert('このブラウザでは録音が使えません。Chrome などをお試しください。');
+          return;
+        }
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        recordedChunks = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+          const url = URL.createObjectURL(audioBlob);
+          recordedAudio.src = url;
+          recordedAudio.style.display = 'block';
+          playRecBtn.disabled = false;
+          downloadBtn.disabled = false;
+          statusDiv.textContent = '録音完了。▶ 再生 または ⬇ ダウンロード で確認できます。';
+        };
+
+        mediaRecorder.start();
+        statusDiv.textContent = '録音中です…（話し終わったら「録音停止」を押してください）';
+        startRecBtn.disabled = true;
+        stopRecBtn.disabled = false;
+        playRecBtn.disabled = true;
+        downloadBtn.disabled = true;
+      } catch (err) {
+        console.error(err);
+        alert('マイクへのアクセスが許可されませんでした。ブラウザの設定を確認してください。');
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        stopRecBtn.disabled = true;
+        startRecBtn.disabled = false;
+      }
+    }
+
+    function playRecording() {
+      if (recordedAudio.src) {
+        recordedAudio.play();
+      }
+    }
+
+    function downloadRecording() {
+      if (!audioBlob) return;
+      const url = URL.createObjectURL(audioBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'recording.webm';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    startRecBtn.addEventListener('click', startRecording);
+    stopRecBtn.addEventListener('click', stopRecording);
+    playRecBtn.addEventListener('click', playRecording);
+    downloadBtn.addEventListener('click', downloadRecording);
+  </script>
+</body>
+</html>
